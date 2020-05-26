@@ -1,8 +1,8 @@
 """
 PHASE 1A CASE 6A
-This python script builds analyzes the tallies from openmc statepoint file 
-and uses functions in scripts/openmc_analysis.py to analyze and manipulate 
-the data into what is required for the FHR benchmark. 
+This python script builds analyzes the tallies from openmc statepoint file
+and uses functions in scripts/openmc_analysis.py to analyze and manipulate
+the data into what is required for the FHR benchmark.
 """
 
 ###############################################################################
@@ -23,14 +23,32 @@ keff = 1.25501
 keff_unc = 0.00003
 
 sp = openmc.StatePoint('h5files/3pcm/statepoint.500.h5')
-beta_b(sp,case)
-# doppler 
-print(reactivity_coefficient_b(keff_og=keff,keff_og_unc=keff_unc,keff_new=1.25084,keff_new_unc=0.00004,temp_change=+50))
-# flibe 
-print(reactivity_coefficient_b(keff_og=keff,keff_og_unc=keff_unc,keff_new=1.25489,keff_new_unc=0.00003,temp_change=+50))
-# graphite 
-print(reactivity_coefficient_b(keff_og=keff,keff_og_unc=keff_unc,keff_new=1.25437,keff_new_unc=0.00003,temp_change=+50))
-fission_density_c(sp,case)
-neutron_flux_d(sp,keff,keff_unc,case)
-neutron_flux_e(sp,keff,case)
-neutron_spectrum_f(sp,case,keff,keff_unc)
+beta_b(sp, case)
+# doppler
+print(
+    reactivity_coefficient_b(
+        keff_og=keff,
+        keff_og_unc=keff_unc,
+        keff_new=1.25084,
+        keff_new_unc=0.00004,
+        temp_change=+50))
+# flibe
+print(
+    reactivity_coefficient_b(
+        keff_og=keff,
+        keff_og_unc=keff_unc,
+        keff_new=1.25489,
+        keff_new_unc=0.00003,
+        temp_change=+50))
+# graphite
+print(
+    reactivity_coefficient_b(
+        keff_og=keff,
+        keff_og_unc=keff_unc,
+        keff_new=1.25437,
+        keff_new_unc=0.00003,
+        temp_change=+50))
+fission_density_c(sp, case)
+neutron_flux_d(sp, keff, keff_unc, case)
+neutron_flux_e(sp, keff, case)
+neutron_spectrum_f(sp, case, keff, keff_unc)
