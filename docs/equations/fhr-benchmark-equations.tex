@@ -1,0 +1,230 @@
+\documentclass[letterpaper,11pt]{article}
+\usepackage[top=1.0in,bottom=1.0in,left=1.0in,right=1.0in]{geometry}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage[acronym,toc]{glossaries}  % acronyms inclusion
+\usepackage{color,soul}
+\makeglossary
+\include{acros}
+\usepackage{gensymb}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{csquotes}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows, decorations, shapes}
+\usetikzlibrary{shapes.geometric,arrows}
+
+\definecolor{illiniblue}{HTML}{B1C6E2}
+\definecolor{illiniorange}{HTML}{f8c2a2}
+\definecolor{pink}{HTML}{e2b1c2}
+\definecolor{green}{HTML}{c2e2b1}
+\definecolor{purple}{HTML}{b9b1e2}
+\tikzstyle{snoblock} = [rectangle, 
+text width=5em, text centered,  minimum height=0em]
+\tikzstyle{noblock} = [rectangle, 
+text width=5em, text centered,  minimum height=3em]
+\tikzstyle{loblock} = [rectangle, draw, fill=illiniorange, 
+text width=15em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{lbblock} = [rectangle, draw, fill=illiniblue, 
+text width=15em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{oblock} = [rectangle, draw, fill=illiniorange, 
+text width=10em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{bblock} = [rectangle, draw, fill=illiniblue, 
+text width=10em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{pblock} = [rectangle, draw, fill=pink, 
+text width=10em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{gblock} = [rectangle, draw, fill=green, 
+text width=10em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{ppblock} = [rectangle, draw, fill=purple, 
+text width=10em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{lppblock} = [rectangle, draw, fill=purple, 
+text width=15em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{bbblock} = [rectangle, draw, fill=illiniblue, 
+text width=1em, text centered, rounded corners, minimum height=1em]
+\tikzstyle{boblock} = [rectangle, draw, fill=illiniorange, 
+text width=1em, text centered, rounded corners, minimum height=1em]
+\tikzstyle{bpblock} = [rectangle, draw, fill=pink, 
+text width=1em, text centered, rounded corners, minimum height=1em]
+\tikzstyle{bgblock} = [rectangle, draw, fill=green, 
+text width=1em, text centered, rounded corners, minimum height=1em]
+\tikzstyle{bppblock} = [rectangle, draw, fill=purple, 
+text width=1em, text centered, rounded corners, minimum height=1em]
+
+\author{Gwendolyn J. Chee}
+
+\title{FHR Benchmark Equations }
+\begin{document}
+\maketitle
+\hrulefill
+\onehalfspacing
+
+This document contains the assumptions and equations used for the FHR 
+benchmark excel spreadsheet results. 
+
+\section{Phase 1a Required Results}
+\begin{enumerate}[label=(\alph*)]
+    \item Effective multiplication factor 
+    \item Reactivity coefficients ($\beta_{eff}$, fuel Doppler coefficient, FLiBe 
+    temperature coefficient, graphite temperature coefficient)
+    \item Tabulated fission source distribution, at several levels of granularity 
+    (by fuel plate, by fuel stripe, by 1/5-th fuel stripe). Optional: visualized fission 
+    density distribution.
+    \item Visualized distribution of the neutron flux distribution, in 3 coarse energy groups
+    \item Neutron spectrum, fuel assembly average. Optional: by region.
+\end{enumerate}
+
+\subsection{Effective multiplication factor (a)}
+Assumptions made: 
+\begin{itemize}
+    \item No. of CPUs = No. of Nodes $\times$ 32 (no. of CPUs in each Blue Waters XE node)
+    \item CPU-time = No. of CPUs $\times$ Total time in simulation (in openmc's results file)
+    \item Wall Clock Time = Total time elapsed (in openmc's results file)
+\end{itemize}
+
+\subsection{Reactivity coefficients (b)}
+We assume 1 energy group and 6 delayed neutron groups for $\beta_{eff}$. 
+\begin{align*}
+    \beta_{eff} = \sum_k \beta_k
+\end{align*}
+
+Doppler reactivity coefficient (fuel): 
+\begin{align*}
+    \frac{\Delta \rho}{\Delta T_f} &= 
+    \frac{\rho_{1150K}-\rho_{1100K}}{1150-1100} [\frac{pcm}{K}] \\
+    \delta \frac{\Delta \rho}{\Delta T_f} &= 
+    \frac{\sqrt{\delta (\rho_{1150K})^2+(\delta \rho_{1100K})^2}}{1150-1100} [\frac{pcm}{K}] 
+\end{align*}
+
+Coolant reactivity coefficient (FLiBe): 
+\begin{align*}
+    \frac{\Delta \rho}{\Delta T_c} &= 
+    \frac{\rho_{1150K}-\rho_{1100K}}{1150-1100} [\frac{pcm}{K}] \\
+    \delta \frac{\Delta \rho}{\Delta T_c} &= 
+    \frac{\sqrt{\delta (\rho_{1150K})^2+(\delta \rho_{1100K})^2}}{1150-1100} [\frac{pcm}{K}] 
+\end{align*}
+
+Graphite reactivity coefficient (graphite): 
+\begin{align*}
+    \frac{\Delta \rho}{\Delta T_g} &= 
+    \frac{\rho_{1150K}-\rho_{1100K}}{1150-1100} [\frac{pcm}{K}] \\
+    \delta \frac{\Delta \rho}{\Delta T_g} &= 
+    \frac{\sqrt{\delta (\rho_{1150K})^2+(\delta \rho_{1100K})^2}}{1150-1100} [\frac{pcm}{K}] 
+\end{align*}
+We assumed all graphite. 
+
+\subsection{Fission source distribution (c)}
+Fission density (FD) is calculated by using openmc's `fission' score (f) divided 
+by the average of all `fission' scores: 
+\begin{align*}
+    FD_i &=  \frac{f_i}{f_{ave}}
+    \intertext{where:}
+    f_{ave} &= \mbox{average of fission scores}
+\end{align*}
+The uncertainty calculations for $f_{ave}$ and $FD_i$: 
+\begin{align*}
+    \delta f_{ave} &= \frac{1}{N}\sqrt{\sum_i^Nf_i^2} \\
+    \delta FD_i &= |FD_i| \sqrt{(\frac{\delta f_i}{f_i})^2+(\frac{\delta f_{ave}}{f_{ave}})^2}
+    \intertext{where:}
+    N &= \mbox{No. of fission score values} 
+\end{align*}
+
+\subsection{Neutron Flux (d, e, f)}
+Openmc's `flux' score is given in units of [$\frac{n * cm}{src}$]. For the benchmark, 
+we need to convert it to units of [$\frac{n}{cm^2s}$]. 
+The conversion: 
+
+\begin{align*}
+    \Phi_c &= \frac{N* \Phi_o}{V} \\
+    N &= \frac{P*\nu}{Q*k} \\
+    \intertext{where:} 
+    \Phi_c &= \mbox{Converted Flux [$\frac{neutrons}{cm^2s}$]} \\
+    \Phi_o &= \mbox{Original Flux [$\frac{neutrons* cm}{src}$]} \\
+    N &= \mbox{Normalization factor [$\frac{src}{s}$]} \\
+    V &= \mbox{Volume of fuel assembly [$cm^3$]} \\
+    P &= \mbox{Power [$\frac{J}{s}$]} \\
+    \nu &= \mbox{$\frac{\nu_f}{f}$ [$\frac{neutrons}{fission}$]} \\
+    Q &= \mbox{Energy produced per fission [$\frac{J}{fission}$]} \\
+    &= \mbox{$3.2044*10^{-11}$ J per $U_{235}$ fission} \\
+    k &= \mbox{$k_{eff}$ [$\frac{neutrons}{src}$]}
+\end{align*}
+Flux standard deviation: 
+\begin{align*}
+    \delta \Phi_c = \Phi_c * 
+    \sqrt{(\frac{\delta \Phi_o}{\Phi_o})^2+ (\frac{\delta \nu_f}{\nu_f})^2 
+    + (\frac{\delta k}{k})^2 + (\frac{\delta f}{f})^2}
+\end{align*}
+Reactor power is calculated based on the given reference specific power ($P_{sp}$) of 200 
+$\frac{W}{gU}$. 
+\begin{align*}
+    P &= P_{sp} * V_F * \rho_F * \frac{wt\%_{U}}{100} 
+    \intertext{where:}
+    P &= \mbox{Reactor power [W]} \\
+    V_F &= \mbox{Volume of fuel [$cm^3$]} \\
+    &= \frac{4}{3} \pi r_1^3 * 101 * 210 * 4 * 2 * 6 * 3\\
+    \rho_F &= \mbox{density of fuel [$g/cc$]} \\
+    wt\%_{U} &= \frac{at\%_{U235} * AM_{U235} + at\%_{U238} * AM_{U238}}{
+        \sum (at\%_i * AM_i)} * 100 \\
+    AM &= \mbox{atomic mass}
+\end{align*}
+
+\section{Phase 1b}
+
+\subsection{Depletion steps}
+Openmc requires the user to input the time instances to conduct depletion till 
+as opposed to the burnup value to conduct depletion till.
+In the benchmark, the burnup value is specified, therefore, we need a method 
+to determine how long the assembly must be depleted to reach the desired burnup. 
+
+\begin{align*}
+    T &= \frac{tU*BU}{P}
+    \intertext{where:}
+    T &= \mbox{depletion time [day]} \\
+    tU &= \mbox{mass of enriched Uranium [metric tonnes]} \\
+    BU &= \mbox{Burnup [MWd/t]} \\
+    P &= \mbox{thermal power [MW]} 
+\end{align*}
+
+\subsection{Choosing depletion step size}
+Openmc states: 
+\begin{displayquote}
+\textit{A general rule of thumb is to use depletion step sizes around 2 MWd/kgHM, 
+where kgHM is really the initial heavy metal mass in kg. These are typically 
+valid for the predictor scheme, as the point of recent schemes is to extend 
+this step size. A good convergence study, where the step size is decreased until 
+some convergence metric is satisfied, is a beneficial exercise.}
+\end{displayquote}
+The `maximum' depletion step:
+\begin{align*}
+    \Delta t_{max} &= \frac{2MWd/khHM*hm_{op}}{P}
+    \intertext{where:}
+    \Delta t_{max} &= \mbox{Maximum depletion step [days]} \\
+    hm_{op} &= \mbox{mass of initial heavy metal [g]} \\
+    P &= \mbox{Power [W]}
+\end{align*} 
+
+\subsection{Unit conversion}
+After running depletion, openmc returns the total number of atoms for each nuclide. 
+The benchmark requests results returned in relative density units [g/tHMi]. 
+Unit Conversion: 
+\begin{align*}
+    \rho_{rel} &= \frac{A_{Ti} * amu}{NA * hm_{op}} 
+    \intertext{where:}
+    \rho_{rel} &= \mbox{Relative density [g/tHMi]} \\
+    A_{Ti} &= \mbox{total no. of atoms per nuclide [atoms]} \\
+    amu &= \mbox{atomic mass unit [g/mol]} \\
+    NA &= \mbox{Avogadro constant [atoms/mol]} \\
+    hm_{op} &= \mbox{mass of initial heavy metal [tHM]} 
+\end{align*}
+
+
+\end{document}
