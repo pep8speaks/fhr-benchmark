@@ -35,24 +35,3 @@ def reactor_power(sp_power, particles):
 
     return t_u, power 
 
-
-def atoms_to_prel(nuclides_type,hmop): 
-    if nuclides_type not in  ['actinides','fission_products','extended_list']:
-        raise Exception('Types allowed: actinides, fission_products or extended_list.')
-    df =  pd.read_csv('depletion_analysis/'+nuclides_type+'_preconv.csv',index_col=0)
-    avo = 6.0221409e+23
-    #hmop = 1227.4327087024026e-6 #tHM
-    nuclides = list(df.columns.values)
-    for a in range(len(nuclides)): 
-        nuclide = nuclides[a]
-        if nuclide == 'Am242_m1':
-            amu = data.atomic_mass('Am242m')
-        elif nuclide == 'Ag110_m1': 
-            amu = data.atomic_mass('Ag110m')
-        else: 
-            amu = data.atomic_mass(nuclide)
-        prel = df[nuclide] * amu / avo / hmop 
-        df[nuclide] = prel
-    df = df.transpose()
-    df.to_csv('depletion_analysis/'+nuclides_type+'.csv')
-    return 
