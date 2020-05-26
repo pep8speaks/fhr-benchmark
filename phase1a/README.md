@@ -10,10 +10,10 @@ and run the job script: `qsub bw_fhr_p1a_c##_run`. (When tallies_on is toggled `
 tallies results will also be generated, and the simulation will take longer to run.)
 
 The outputs of the job script for Case ## with 3pcm error is in the results directory: 
-- `results_fhr_p1a_c##_3pcm` (tallies yes)
-- `results_fhr_p1a_c##_3pcm_doppler`: + 50K to temperature of fuel material (tallies no)
-- `results_fhr_p1a_c##_3pcm_flibe`: + 50K to temperature of FliBe material (tallies no)
-- `results_fhr_p1a_c##_3pcm_graphite`: + 50K to temperature of graphite materials (tallies no) 
+- `results_fhr_p1a_c##_3pcm` (tallies_on = True)
+- `results_fhr_p1a_c##_3pcm_doppler`: + 50K to temperature of fuel material (tallies_on = False)
+- `results_fhr_p1a_c##_3pcm_flibe`: + 50K to temperature of FliBe material (tallies_on = False)
+- `results_fhr_p1a_c##_3pcm_graphite`: + 50K to temperature of graphite materials (tallies_on = False)
 
 In this directory, `python case##_build_xml.py` builds the XML files required to create  `results_fhr_p1a_c##_3pcm`'s 
 output. To generate the other results, `python case##_build_xml.py` must be edited slightly based on the 
