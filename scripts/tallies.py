@@ -3,6 +3,16 @@ import openmc.mgxs as mgxs
 from phase1a_constants import *
 
 def tallies_generation(root): 
+    """ Creates tallies.xml file 
+
+    Parameters
+    ----------
+    root: openmc.Universe with all the relevant cells for the geometry. 
+
+    Returns
+    -------
+    This function generates the tallies.xml file.  
+    """
     tallies_file = openmc.Tallies()
     # phase1a-b
     energy_filter_b = openmc.EnergyFilter([1e-6,20.0e6])
