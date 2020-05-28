@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -l nodes=128:ppn=32:xe
-#PBS -l walltime=6:30:00
-#PBS -N fhr_p1b_c1b_clean
+#PBS -l walltime=48:00:00
+#PBS -N fhr_p1b_c1b
 #PBS -j oe
 #PBS -q normal
 #PBS -A bbcc
@@ -31,7 +31,7 @@
 # you can: mkdir -p /scratch/sciteam/$USER/$PBS_JOBID
 # cd /scratch/sciteam/$USER/$PBS_JOBID
 
-cd /u/sciteam/chee1/github/fhr-benchmark/phase1b/case1b_clean
+cd /u/sciteam/chee1/github/fhr-benchmark/phase1b/case1b
 
 ### launch the application
 ### redirecting stdin and stdout if needed
