@@ -26,6 +26,6 @@ operator = openmc.deplete.Operator(geom, settings, chain_file)
 hmop = operator.heavy_metal
 print('hm = ' + str(hmop))
 
-#integrator = openmc.deplete.CELIIntegrator(operator=operator, timesteps=np.diff(bu), timestep_units='Mwd/kg', power=245486.6796001383)
-#integrator.integrate()
+integrator = openmc.deplete.CELIIntegrator(operator=operator, timesteps=np.diff(bu), timestep_units='Mwd/kg', power=245486.6796001383)
+integrator.integrate()
 
