@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l nodes=128:ppn=32:xe
-#PBS -l walltime=8:00:00
+#PBS -l walltime=48:00:00
 #PBS -N fhr_p1b_c7b
 #PBS -j oe
 #PBS -q normal
