@@ -22,9 +22,9 @@ from tallies import *
 ###############################################################################
 
 # OpenMC simulation parameters
-batches = 500
-inactive = 100
-particles = 2000000
+batches = 10
+inactive = 1
+particles = 100
 tallies_on = True
 
 ###############################################################################
@@ -105,6 +105,7 @@ euo_s.add_nuclide('Eu151', 8.179510e-3)
 euo_s.add_nuclide('Eu153', 8.932435e-3)
 euo_s.add_nuclide('O16', 2.56792e-2)
 euo_s.temperature = 948
+euo_s.volume = 4/3 * pi * (DE_r **3) * 5 * 18 * 101
 
 mats = openmc.Materials(
     (uoc_9,
