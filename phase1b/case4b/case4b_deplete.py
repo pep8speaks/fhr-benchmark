@@ -11,7 +11,7 @@ import openmc.deplete
 import numpy as np
 import sys
 sys.path.insert(1, '../../phase1a/case4a/')
-from case1a_build_xml import *
+from case4a_build_xml import *
 sys.path.insert(1, '../../scripts/')
 from phase1b_constants import *
 
