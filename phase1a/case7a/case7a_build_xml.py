@@ -21,9 +21,9 @@ from tallies import *
 ###############################################################################
 
 # OpenMC simulation parameters
-batches = 500
-inactive = 100
-particles = 2000000
+batches = 10
+inactive = 1
+particles = 100
 tallies_on = True
 
 ###############################################################################
