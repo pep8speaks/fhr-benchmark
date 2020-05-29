@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import sys
 sys.path.insert(1, '../../scripts/')
 from phase1a_constants import *
+from phase1b_constants import *
 
 ###############################################################################
 #                           Criticality Functions
@@ -389,3 +390,54 @@ def neutron_spectrum_f(sp, case, k, kerr):
     df_ff_T = df_ff.T
     df_ff_T.to_csv(name + '.csv')
     return
+
+
+###############################################################################
+#                           Depletion Functions
+###############################################################################
+def drop_burnups(df):
+    for i in df.index:
+        if i not in BUs_sheet: 
+            df = df.drop([i])
+    return df
+
+
+def depletion_keff(results,type):
+    time, k = results.get_eigenvalue()
+    if type == 'short':
+        df_k = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
+    elif type == 'long':
+        df_k = pd.DataFrame(index=bu_7b[:np.shape(results.get_atoms("1", 'U235'))[1]])
+    else: 
+        raise Exception("Only short and long are excepted.")
+    df_k.index.name = 'BU'
+    df_k['k'] = k[:,0]
+    df_k['kerr'] = k[:,1]
+    df_k = drop_burnups(df_k)
+    df_k.to_csv('depletion_analysis/keff.csv')
+    return
+
+def depletion_actinides(results): 
+    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
+    df.index.name = 'BU'
+    for a in actinides: 
+        _time, df[a] = results.get_atoms("1", a)
+    df = drop_burnups(df)
+    df.to_csv('depletion_analysis/actinides_preconv.csv')
+    return
+
+def depletion_fp(results):
+    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
+    df.index.name = 'BU'
+    for f in fp: 
+        _time, df[f] = results.get_atoms("1", f)
+    df = drop_burnups(df)
+    df.to_csv('depletion_analysis/fission_products_preconv.csv')
+
+def depletion_extended(results):
+    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
+    df.index.name = 'BU'
+    for e in extended_list: 
+        _time, df[e] = results.get_atoms("1", e)
+    df = drop_burnups(df)
+    df.to_csv('depletion_analysis/extended_list_preconv.csv')
