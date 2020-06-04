@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<materials>
+  <material id="1" depletable="true" volume="124.50460305036589" temperature="1110">
+    <density value="11" units="g/cc" />
+    <nuclide name="U235" ao="0.00498781" />
+    <nuclide name="U238" ao="0.02001094" />
+    <nuclide name="O16" ao="0.03566255" />
+    <nuclide name="C0" ao="0.0098092" />
+  </material>
+  <material id="2" temperature="948">
+    <density value="1" units="g/cc" />
+    <nuclide name="C0" ao="0.0501398" />
+  </material>
+  <material id="3" temperature="948">
+    <density value="3.2" units="g/cc" />
+    <nuclide name="Si28" ao="0.0443124" />
+    <nuclide name="Si29" ao="0.00225887" />
+    <nuclide name="Si30" ao="0.0014899" />
+    <nuclide name="C0" ao="0.04806117" />
+  </material>
+  <material id="4" temperature="998">
+    <density value="1.8" units="g/cc" />
+    <nuclide name="C0" ao="0.09025164" />
+  </material>
+  <material id="5" temperature="998">
+    <density value="1.8" units="g/cc" />
+    <nuclide name="C0" ao="0.09025164" />
+  </material>
+  <material id="6" temperature="998">
+    <density value="1.8" units="g/cc" />
+    <nuclide name="C0" ao="0.09025164" />
+  </material>
+  <material id="7" temperature="998">
+    <density value="1.8" units="g/cc" />
+    <nuclide name="C0" ao="0.09025164" />
+  </material>
+  <material id="8" temperature="948">
+    <density value="1.95" units="g/cc" />
+    <nuclide name="Li6" ao="1.383014e-06" />
+    <nuclide name="Li7" ao="0.0237132" />
+    <nuclide name="Be9" ao="0.0118573" />
+    <nuclide name="F19" ao="0.0474291" />
+  </material>
+  <material id="9" temperature="948">
+    <density value="10.28" units="g/cc" />
+    <nuclide name="Mo92" ao="0.009328884" />
+    <nuclide name="Mo94" ao="0.005850533" />
+    <nuclide name="Mo95" ao="0.01010836" />
+    <nuclide name="Mo96" ao="0.01061782" />
+    <nuclide name="Mo97" ao="0.00610208" />
+    <nuclide name="Mo98" ao="0.01546981" />
+    <nuclide name="Mo100" ao="0.006205246" />
+    <nuclide name="Hf174" ao="6.65953e-07" />
+    <nuclide name="Hf176" ao="2.189321e-05" />
+    <nuclide name="Hf177" ao="7.741704e-05" />
+    <nuclide name="Hf178" ao="0.000113545" />
+    <nuclide name="Hf179" ao="5.668925e-05" />
+    <nuclide name="Hf180" ao="0.0001460102" />
+    <nuclide name="C0" ao="0.0005154371" />
+  </material>
+</materials>
