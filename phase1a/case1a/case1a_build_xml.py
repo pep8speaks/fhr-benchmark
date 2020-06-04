@@ -21,10 +21,10 @@ from tallies import *
 ###############################################################################
 
 # OpenMC simulation parameters
-batches = 10
-inactive = 1
-particles = 100
-tallies_on = False
+batches = 100
+inactive = 10
+particles = 100000
+tallies_on = True
 
 ###############################################################################
 #                 Exporting to OpenMC materials.xml file
@@ -32,55 +32,52 @@ tallies_on = False
 
 uoc_9 = openmc.Material()
 uoc_9.set_density('g/cc', 11)
-uoc_9_total = 2.27325e-3+2.269476e-2+3.561871e-2+9.79714e-3
-uoc_9.add_nuclide('U235', 2.27325e-3/uoc_9_total)
-uoc_9.add_nuclide('U238', 2.269476e-2/uoc_9_total)
-uoc_9.add_nuclide('O16', 3.561871e-2/uoc_9_total)
-uoc_9.add_nuclide('C0', 9.79714e-3/uoc_9_total)
+uoc_9.add_nuclide('U235', 2.27325e-3)
+uoc_9.add_nuclide('U238', 2.269476e-2)
+uoc_9.add_nuclide('O16', 3.561871e-2)
+uoc_9.add_nuclide('C0', 9.79714e-3)
 uoc_9.temperature = 1110
 uoc_9.volume = 4 / 3 * pi * (T_r1 ** 3) * 101 * 210 * 4 * 36
 
 por_c = openmc.Material()
 por_c.set_density('g/cc', 1)
-por_c.add_nuclide('C0', 1)
+por_c.add_nuclide('C0', 5.013980e-2)
 por_c.temperature = 948
 
 si_c = openmc.Material()
 si_c.set_density('g/cc', 3.2)
-sic_total = 4.431240e-2 + 2.25887e-3 + 1.48990e-3 + 4.806117e-2
-si_c.add_nuclide('Si28', 4.431240e-2/sic_total)
-si_c.add_nuclide('Si29', 2.25887e-3/sic_total)
-si_c.add_nuclide('Si30', 1.48990e-3/sic_total)
-si_c.add_nuclide('C0', 4.806117e-2/sic_total)
+si_c.add_nuclide('Si28', 4.431240e-2)
+si_c.add_nuclide('Si29', 2.25887e-3)
+si_c.add_nuclide('Si30', 1.48990e-3)
+si_c.add_nuclide('C0', 4.806117e-2)
 si_c.temperature = 948
 
 graphite = openmc.Material()
 graphite.set_density('g/cc', 1.8)
-graphite.add_nuclide('C0', 1)
+graphite.add_nuclide('C0', 9.025164e-2)
 graphite.temperature = 948
 
 p_graphite = openmc.Material()
 p_graphite.set_density('g/cc', 1.8)
-p_graphite.add_nuclide('C0', 1)
+p_graphite.add_nuclide('C0', 9.025164e-2)
 p_graphite.temperature = 948
 
 s_graphite = openmc.Material()
 s_graphite.set_density('g/cc', 1.8)
-s_graphite.add_nuclide('C0', 1)
+s_graphite.add_nuclide('C0', 9.025164e-2)
 s_graphite.temperature = 948
 
 lm_graphite = openmc.Material()
 lm_graphite.set_density('g/cc', 1.8)
-lm_graphite.add_nuclide('C0', 1)
+lm_graphite.add_nuclide('C0', 9.025164e-2)
 lm_graphite.temperature = 948
 
 flibe = openmc.Material()
 flibe.set_density('g/cc', 1.95)
-flibe_total = 1.383014e-6 + 2.37132e-2 + 1.18573e-2 + 4.74291e-2
-flibe.add_nuclide('Li6', 1.383014e-6/flibe_total)
-flibe.add_nuclide('Li7', 2.37132e-2/flibe_total)
-flibe.add_nuclide('Be9', 1.18573e-2/flibe_total)
-flibe.add_nuclide('F19', 4.74291e-2/flibe_total)
+flibe.add_nuclide('Li6', 1.383014e-6)
+flibe.add_nuclide('Li7', 2.37132e-2)
+flibe.add_nuclide('Be9', 1.18573e-2)
+flibe.add_nuclide('F19', 4.74291e-2)
 flibe.temperature = 948
 
 mhc = openmc.Material()
