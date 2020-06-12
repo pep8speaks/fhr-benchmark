@@ -2,7 +2,8 @@
 
 This scripts contains functions for analyzing the tallies
 from the openmc statepoint file and manipulate the data
-into what is required for the FHR benchmark.
+into what is required in the criticality 
+part (phase1a) of the FHR benchmark.
 
 """
 
@@ -14,7 +15,6 @@ import matplotlib.pyplot as plt
 import sys
 sys.path.insert(1, '../../scripts/')
 from phase1a_constants import *
-from phase1b_constants import *
 
 ###############################################################################
 #                           Criticality Functions
@@ -150,7 +150,7 @@ def fission_density_c(sp, case):
     for phase 1a-c of the benchmark.
     """
 
-    name = 'analysis_output/p1a_' + case + '_c'
+    name = 'analysis_output/' + case + '_c'
     region = ['1', '2', '3', '4', '5']
     fission_rates = []
     num = 1
@@ -204,7 +204,7 @@ def fission_density_c(sp, case):
     normal = pl.Normalize(vs.min(), vs.max())
     colors = pl.cm.YlOrRd(normal(vs))
 
-    ax = pl.subplot(111)
+    fig, ax = plt.subplots()
     for x, y, w, h, c in zip(xs, ys, ws, hs, colors):
         rect = pl.Rectangle((x, y), w, h, color=c)
         ax.add_patch(rect)
@@ -244,7 +244,7 @@ def neutron_flux_d(sp, k, kerr, case):
     This function generates a csv file with neutron flux results
     """
 
-    name = 'analysis_output/p1a_' + case + '_d'
+    name = 'analysis_output/' + case + '_d'
     mesh_tally_d = sp.get_tally(name='mesh tally d')
     df_d = mesh_tally_d.get_pandas_dataframe()
     df_dd = pd.DataFrame(index=['E3', 'E2', 'E1'])
@@ -279,7 +279,7 @@ def neutron_flux_e(sp, k, case):
     energy groups.
     """
 
-    name = 'analysis_output/p1a_' + case + '_e'
+    name = 'analysis_output/' + case + '_e'
     mesh_tally_e = sp.get_tally(name='mesh tally e')
     flux = mesh_tally_e.get_slice(scores=['flux'])
     nu_fission = mesh_tally_e.get_slice(scores=['nu-fission'])
@@ -369,7 +369,7 @@ def neutron_spectrum_f(sp, case, k, kerr):
     spectrum averaged over the fuel assembly.
     """
 
-    name = 'analysis_output/p1a_' + case + '_f'
+    name = 'analysis_output/' + case + '_f'
     mesh_tally_f = sp.get_tally(name='mesh tally f')
     df_f = mesh_tally_f.get_pandas_dataframe()
     index_list = []
@@ -392,52 +392,3 @@ def neutron_spectrum_f(sp, case, k, kerr):
     return
 
 
-###############################################################################
-#                           Depletion Functions
-###############################################################################
-def drop_burnups(df):
-    for i in df.index:
-        if i not in BUs_sheet: 
-            df = df.drop([i])
-    return df
-
-
-def depletion_keff(results,type):
-    time, k = results.get_eigenvalue()
-    if type == 'short':
-        df_k = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
-    elif type == 'long':
-        df_k = pd.DataFrame(index=bu_7b[:np.shape(results.get_atoms("1", 'U235'))[1]])
-    else: 
-        raise Exception("Only short and long are excepted.")
-    df_k.index.name = 'BU'
-    df_k['k'] = k[:,0]
-    df_k['kerr'] = k[:,1]
-    df_k = drop_burnups(df_k)
-    df_k.to_csv('depletion_analysis/keff.csv')
-    return
-
-def depletion_actinides(results): 
-    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
-    df.index.name = 'BU'
-    for a in actinides: 
-        _time, df[a] = results.get_atoms("1", a)
-    df = drop_burnups(df)
-    df.to_csv('depletion_analysis/actinides_preconv.csv')
-    return
-
-def depletion_fp(results):
-    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
-    df.index.name = 'BU'
-    for f in fp: 
-        _time, df[f] = results.get_atoms("1", f)
-    df = drop_burnups(df)
-    df.to_csv('depletion_analysis/fission_products_preconv.csv')
-
-def depletion_extended(results):
-    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
-    df.index.name = 'BU'
-    for e in extended_list: 
-        _time, df[e] = results.get_atoms("1", e)
-    df = drop_burnups(df)
-    df.to_csv('depletion_analysis/extended_list_preconv.csv')
