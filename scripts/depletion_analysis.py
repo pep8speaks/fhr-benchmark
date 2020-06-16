@@ -46,10 +46,16 @@ def depletion_keff(results,type,case):
     return
 
 
-def depletion_fission_density_c(burnups,case,particles):
+def depletion_fission_density_c(burnups,case,particles,type='short'):
+    if type == 'short':
+        bus = bu.copy()
+    elif type == 'long':
+        bus = bu_7b.copy()
+    else: 
+        raise Exception('Only short and long types allowed.')
     for b in burnups: 
-        sp = openmc.StatePoint('h5files/'+str(particles)+'p/openmc_simulation_n'+str(np.where(bu == b)[0][0])+'.h5')
-        case_loop = 'p1b_c1b_bu_'+str(b)
+        sp = openmc.StatePoint('h5files/'+str(particles)+'p/openmc_simulation_n'+str(np.where(bus == b)[0][0])+'.h5')
+        case_loop = case+'_bu_'+str(b)
         fission_density_c(sp,case_loop)
         name = 'analysis_output/' + case_loop + '_c.csv'
         df = pd.read_csv(name,index_col=[0,1])
@@ -66,16 +72,18 @@ def depletion_fission_density_c(burnups,case,particles):
 def depletion_neutron_flux_d(case,type,particles):
     if type == 'short':
         burnups = BUs_sheet[:18].copy()
+        bus = bu.copy()
     elif type == 'long':
         burnups = BUs_sheet.copy()
+        bus = bu_7b.copy()
     else: 
         raise Exception('Only short and long types allowed.')
     df_keff = pd.read_csv('analysis_output/' + case + '_a.csv',index_col=0)
     for b in burnups:
         keff = df_keff.loc[b,:][0]
         keff_unc = df_keff.loc[b,:][1]
-        sp = openmc.StatePoint('h5files/'+str(particles)+'p/openmc_simulation_n'+str(np.where(bu == b)[0][0])+'.h5')
-        case_loop = 'p1b_c1b_bu_'+str(b)
+        sp = openmc.StatePoint('h5files/'+str(particles)+'p/openmc_simulation_n'+str(np.where(bus == b)[0][0])+'.h5')
+        case_loop = case+'_bu_'+str(b)
         neutron_flux_d(sp,keff,keff_unc,case_loop)
         name = 'analysis_output/' + case_loop + '_d.csv'
         df = pd.read_csv(name,index_col=[0])
@@ -88,12 +96,18 @@ def depletion_neutron_flux_d(case,type,particles):
     return
 
 
-def depletion_neutron_flux_e(burnups,case,particles):
+def depletion_neutron_flux_e(burnups,case,particles,type='short'):
+    if type == 'short':
+        bus = bu.copy()
+    elif type == 'long':
+        bus = bu_7b.copy()
+    else: 
+        raise Exception('Only short and long types allowed.')
     df_keff = pd.read_csv('analysis_output/' + case + '_a.csv',index_col=0)
     for b in burnups:
         keff = df_keff.loc[b,:][0]
-        sp = openmc.StatePoint('h5files/'+str(particles)+'p/openmc_simulation_n'+str(np.where(bu == b)[0][0])+'.h5')
-        case_loop = 'p1b_c1b_bu_'+str(b)
+        sp = openmc.StatePoint('h5files/'+str(particles)+'p/openmc_simulation_n'+str(np.where(bus == b)[0][0])+'.h5')
+        case_loop = case+'_bu_'+str(b)
         neutron_flux_e(sp,keff,case_loop)
     for b in burnups: 
         name = 'analysis_output/' + case + '_bu_' + str(b) + '_e'
@@ -108,40 +122,77 @@ def depletion_neutron_flux_e(burnups,case,particles):
         df_all.to_csv('analysis_output/' + case + '_e' + '_bu_' + str(b) +'.csv')
     return
 
-def depletion_neutron_spectrum_f(burnups,case,particles):
+def depletion_neutron_spectrum_f(burnups,case,particles,type='short'):
+    if type == 'short':
+        bus = bu.copy()
+    elif type == 'long':
+        bus = bu_7b.copy()
+    else: 
+        raise Exception('Only short and long types allowed.')
     df_keff = pd.read_csv('analysis_output/' + case + '_a.csv',index_col=0)
     for b in burnups: 
-        sp = openmc.StatePoint('h5files/'+str(particles)+'p/openmc_simulation_n'+str(np.where(bu == b)[0][0])+'.h5')
-        case_loop = 'p1b_c1b_f_bu_'+str(b)
+        sp = openmc.StatePoint('h5files/'+str(particles)+'p/openmc_simulation_n'+str(np.where(bus == b)[0][0])+'.h5')
+        case_loop = case+'_f_bu_'+str(b)
         keff = df_keff.loc[b,:][0]
         keff_unc = df_keff.loc[b,:][1]
         neutron_spectrum_f(sp,case_loop,keff,keff_unc)
     return
 
-def depletion_actinides(results,case): 
-    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
+def depletion_actinides(results,case,type='short'):
+    if type == 'short':
+        bus = bu.copy()
+    elif type == 'long':
+        bus = bu_7b.copy()
+    else: 
+        raise Exception('Only short and long types allowed.')
+    df = pd.DataFrame(index=bus[:np.shape(results.get_atoms("1", 'U235'))[1]])
     df.index.name = 'BU'
     for a in actinides: 
         _time, df[a] = results.get_atoms("1", a, "atom/b-cm")
     df = drop_burnups(df)
     df = df.transpose()
-    df.to_csv('analysis_output/'+case+'_g_actinides_preconv.csv')
+    df.to_csv('analysis_output/'+case+'_g_actinides.csv')
     return
 
-def depletion_fp(results,case):
-    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
+def depletion_fp(results,case,type='short'):
+    if type == 'short':
+        bus = bu.copy()
+    elif type == 'long':
+        bus = bu_7b.copy()
+    else: 
+        raise Exception('Only short and long types allowed.')
+    df = pd.DataFrame(index=bus[:np.shape(results.get_atoms("1", 'U235'))[1]])
     df.index.name = 'BU'
     for f in fp: 
         _time, df[f] = results.get_atoms("1", f, "atom/b-cm")
     df = drop_burnups(df)
     df = df.transpose()
     df.to_csv('analysis_output/'+case+'_g_fission_products.csv')
+    return
 
-def depletion_extended(results,case):
-    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("1", 'U235'))[1]])
+def depletion_extended(results,case,type='short'):
+    if type == 'short':
+        bus = bu.copy()
+    elif type == 'long':
+        bus = bu_7b.copy()
+    else: 
+        raise Exception('Only short and long types allowed.')
+    df = pd.DataFrame(index=bus[:np.shape(results.get_atoms("1", 'U235'))[1]])
     df.index.name = 'BU'
     for e in extended_list: 
         _time, df[e] = results.get_atoms("1", e, "atom/b-cm")
     df = drop_burnups(df)
     df = df.transpose()
-    df.to_csv('analysis_output/'+case+'_g_extended_list_preconv.csv')
+    df.to_csv('analysis_output/'+case+'_g_extended_list.csv')
+    return
+
+
+def depletion_eu(results,case):
+    df = pd.DataFrame(index=bu[:np.shape(results.get_atoms("10", 'Eu151'))[1]])
+    df.index.name = 'BU'
+    for e in europium: 
+        _time, df[e] = results.get_atoms("10", e, "atom/b-cm")
+    df = drop_burnups(df)
+    df = df.transpose()
+    df.to_csv('analysis_output/'+case+'_g_europium.csv')
+    return
