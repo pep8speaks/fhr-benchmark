@@ -1,5 +1,5 @@
 """
-This python script runs the depletion analysis for case4b of the FHR 
+This python script runs the isotopic depletion analysis for case4b of the FHR 
 benchmark. 
 
 """
@@ -21,12 +21,11 @@ from phase1b_constants import *
 ###############################################################################
 
 case = 'p1b_c4b'
-results = openmc.deplete.ResultsList.from_hdf5("results/depletion_results_100000p.h5")
+results = openmc.deplete.ResultsList.from_hdf5("results/depletion_results_10000p_nobug.h5")
 
 depletion_keff(results,'short',case)
 
-burnups = [0, 1, 30, 70]
-depletion_fission_density_c(burnups,case,100000)
-depletion_neutron_flux_d(case,'short',100000)
-depletion_neutron_flux_e(burnups,case,100000)
-depletion_neutron_spectrum_f(burnups,case,100000)
+depletion_actinides(results,case)
+depletion_fp(results,case)
+depletion_eu(results,case)
+depletion_extended(results,case)
