@@ -79,6 +79,7 @@ benchmark excel spreadsheet results.
     \item Tabulated fission source distribution, at several levels of granularity 
     (by fuel plate, by fuel stripe, by 1/5-th fuel stripe). Optional: visualized fission 
     density distribution.
+    \item Neutron flux averaged over the whole model tabulated in 3 coarse energy groups. 
     \item Visualized distribution of the neutron flux distribution, in 3 coarse energy groups
     \item Neutron spectrum, fuel assembly average. Optional: by region.
 \end{enumerate}
@@ -128,7 +129,8 @@ by the average of all `fission' scores:
 \begin{align*}
     FD_i &=  \frac{f_i}{f_{ave}}
     \intertext{where:}
-    f_{ave} &= \mbox{average of fission scores}
+    f_i &= \mbox{Total fission reaction rate [reactions/src]} \\
+    f_{ave} &= \mbox{average of all $f_i$ [reactions/src]}
 \end{align*}
 The uncertainty calculations for $f_{ave}$ and $FD_i$: 
 \begin{align*}
@@ -176,55 +178,5 @@ $\frac{W}{gU}$.
         \sum (at\%_i * AM_i)} * 100 \\
     AM &= \mbox{atomic mass}
 \end{align*}
-
-\section{Phase 1b}
-
-\subsection{Depletion steps}
-Openmc requires the user to input the time instances to conduct depletion till 
-as opposed to the burnup value to conduct depletion till.
-In the benchmark, the burnup value is specified, therefore, we need a method 
-to determine how long the assembly must be depleted to reach the desired burnup. 
-
-\begin{align*}
-    T &= \frac{tU*BU}{P}
-    \intertext{where:}
-    T &= \mbox{depletion time [day]} \\
-    tU &= \mbox{mass of enriched Uranium [metric tonnes]} \\
-    BU &= \mbox{Burnup [MWd/t]} \\
-    P &= \mbox{thermal power [MW]} 
-\end{align*}
-
-\subsection{Choosing depletion step size}
-Openmc states: 
-\begin{displayquote}
-\textit{A general rule of thumb is to use depletion step sizes around 2 MWd/kgHM, 
-where kgHM is really the initial heavy metal mass in kg. These are typically 
-valid for the predictor scheme, as the point of recent schemes is to extend 
-this step size. A good convergence study, where the step size is decreased until 
-some convergence metric is satisfied, is a beneficial exercise.}
-\end{displayquote}
-The `maximum' depletion step:
-\begin{align*}
-    \Delta t_{max} &= \frac{2MWd/khHM*hm_{op}}{P}
-    \intertext{where:}
-    \Delta t_{max} &= \mbox{Maximum depletion step [days]} \\
-    hm_{op} &= \mbox{mass of initial heavy metal [g]} \\
-    P &= \mbox{Power [W]}
-\end{align*} 
-
-\subsection{Unit conversion}
-After running depletion, openmc returns the total number of atoms for each nuclide. 
-The benchmark requests results returned in relative density units [g/tHMi]. 
-Unit Conversion: 
-\begin{align*}
-    \rho_{rel} &= \frac{A_{Ti} * amu}{NA * hm_{op}} 
-    \intertext{where:}
-    \rho_{rel} &= \mbox{Relative density [g/tHMi]} \\
-    A_{Ti} &= \mbox{total no. of atoms per nuclide [atoms]} \\
-    amu &= \mbox{atomic mass unit [g/mol]} \\
-    NA &= \mbox{Avogadro constant [atoms/mol]} \\
-    hm_{op} &= \mbox{mass of initial heavy metal [tHM]} 
-\end{align*}
-
 
 \end{document}
