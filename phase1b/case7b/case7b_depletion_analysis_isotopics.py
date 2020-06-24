@@ -1,6 +1,6 @@
 """
-This python script runs the isotopic depletion analysis for case7b of the FHR 
-benchmark. 
+This python script runs the isotopic depletion analysis for case7b of the FHR
+benchmark.
 
 """
 ###############################################################################
@@ -21,10 +21,9 @@ from phase1b_constants import *
 ###############################################################################
 
 case = 'p1b_c7b'
-results = openmc.deplete.ResultsList.from_hdf5("results/depletion_results_10000p_nobug.h5")
-
-depletion_keff(results,'long',case)
-
-depletion_actinides(results,case,'long')
-depletion_fp(results,case,'long')
-depletion_extended(results,case,'long')
+results = openmc.deplete.ResultsList.from_hdf5(
+    "results/depletion_results_10000p_nobug.h5")
+depletion_keff(results, 'long', case)
+depletion_actinides(results, case, 'long')
+depletion_fp(results, case, 'long')
+depletion_extended(results, case, 'long')
