@@ -225,7 +225,7 @@ def neutron_flux_d(sp, k, kerr, case):
     """Generates a csv file with results of neutron flux
     averaged over the whole model, tabulated in 3 coarse energy groups
     (upper energy boundaries 3 eV for thermal group and 0.1 MeV for
-    intermediate group)
+    intermediate group) in the analysis_output folder.
 
     Parameters
     ----------
