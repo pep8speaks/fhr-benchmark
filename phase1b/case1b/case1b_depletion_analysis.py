@@ -1,6 +1,6 @@
 """
-This python script runs the depletion analysis for case1b of the FHR 
-benchmark. 
+This python script runs the depletion analysis for case1b of the FHR
+benchmark.
 
 """
 ###############################################################################
@@ -19,13 +19,13 @@ from phase1b_constants import *
 ###############################################################################
 #                                  Run
 ###############################################################################
+
 case = 'p1b_c1b'
-results = openmc.deplete.ResultsList.from_hdf5("results/depletion_results_100000p.h5")
-
-depletion_keff(results,'short',case)
-
+results = openmc.deplete.ResultsList.from_hdf5(
+    "results/depletion_results_100000p.h5")
+depletion_keff(results, 'short', case)
 burnups = [0, 1, 30, 70]
-depletion_fission_density_c(burnups,case,100000)
-depletion_neutron_flux_d(case,'short',100000)
-depletion_neutron_flux_e(burnups,case,100000)
-depletion_neutron_spectrum_f(burnups,case,100000)
+depletion_fission_density_c(burnups, case, 100000)
+depletion_neutron_flux_d(case, 'short', 100000)
+depletion_neutron_flux_e(burnups, case, 100000)
+depletion_neutron_spectrum_f(burnups, case, 100000)
