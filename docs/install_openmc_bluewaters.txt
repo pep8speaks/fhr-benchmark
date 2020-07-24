@@ -1,0 +1,45 @@
+This text file includes instructions on how to install OpenMC on BlueWaters.
+
+The process of installing OpenMC on BlueWaters was simple for the non-parallel 
+version of OpenMC without the Python API. Installing the parallel version 
+of OpenMC with the Python API required me to troubleshoot with the BlueWaters 
+user support team. 
+
+Build commands for BlueWaters installation of OpenMC: 
+
+module load bwpy/2.0.2 
+module load bwpy-mpi
+module swap PrgEnv-cray/5.2.82 PrgEnv-gnu/5.2.82-gcc.4.9.3
+module swap gcc gcc/5.3.0 
+module unload cray-mpich
+module load cray-mpich/7.5.0
+module load cmake/3.9.4
+module load cray-hdf5
+
+export CRAYPE_LINK_TYPE=dynamic
+export CRAY_ADD_RPATH=yes
+
+bwpy-environ
+
+export CXX=CC 
+export CC=cc 
+git clone https://github.com/openmc-dev/openmc.git
+cd openmc
+git checkout master
+mkdir build && cd build
+cmake ..
+make -j 16
+
+mkdir myvirtualenv
+cd myvirtualenv
+virtualenv --system-site-packages $PWD
+source bin/activate
+
+export CFLAGS="-std=gnu99 -Wno-cpp"
+
+cat >../../pyproject.toml <<EOT
+[build-system]
+requires = ["setuptools==40.0.0", "wheel==0.31.1", "numpy==1.14.5", "cython==0.28.4"]
+build-backend="setuptools.build_meta"
+EOT
+ pip --no-cache-dir install ../..

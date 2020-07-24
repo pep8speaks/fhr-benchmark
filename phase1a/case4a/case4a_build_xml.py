@@ -39,6 +39,7 @@ uoc_9.add_nuclide('O16', 3.561871e-2)
 uoc_9.add_nuclide('C0', 9.79714e-3)
 uoc_9.temperature = 1110
 uoc_9.volume = 4 / 3 * pi * (T_r1 ** 3) * 101 * 210 * 4 * 36
+uoc_9.depletable= True
 
 por_c = openmc.Material()
 por_c.set_density('g/cc', 1)
@@ -105,6 +106,8 @@ euo_s.add_nuclide('Eu151', 8.179510e-3)
 euo_s.add_nuclide('Eu153', 8.932435e-3)
 euo_s.add_nuclide('O16', 2.56792e-2)
 euo_s.temperature = 948
+euo_s.volume = 4/3 * pi * (DE_r **3) * 5 * 18 * 101
+euo_s.depletable = True 
 
 mats = openmc.Materials(
     (uoc_9,

@@ -2,7 +2,8 @@
 
 This scripts contains functions for analyzing the tallies
 from the openmc statepoint file and manipulate the data
-into what is required for the FHR benchmark.
+into what is required in the criticality 
+part (phase1a) of the FHR benchmark.
 
 """
 
@@ -149,7 +150,7 @@ def fission_density_c(sp, case):
     for phase 1a-c of the benchmark.
     """
 
-    name = 'analysis_output/p1a_' + case + '_c'
+    name = 'analysis_output/' + case + '_c'
     region = ['1', '2', '3', '4', '5']
     fission_rates = []
     num = 1
@@ -203,7 +204,7 @@ def fission_density_c(sp, case):
     normal = pl.Normalize(vs.min(), vs.max())
     colors = pl.cm.YlOrRd(normal(vs))
 
-    ax = pl.subplot(111)
+    fig, ax = plt.subplots()
     for x, y, w, h, c in zip(xs, ys, ws, hs, colors):
         rect = pl.Rectangle((x, y), w, h, color=c)
         ax.add_patch(rect)
@@ -224,7 +225,7 @@ def neutron_flux_d(sp, k, kerr, case):
     """Generates a csv file with results of neutron flux
     averaged over the whole model, tabulated in 3 coarse energy groups
     (upper energy boundaries 3 eV for thermal group and 0.1 MeV for
-    intermediate group)
+    intermediate group) in the analysis_output folder.
 
     Parameters
     ----------
@@ -243,7 +244,7 @@ def neutron_flux_d(sp, k, kerr, case):
     This function generates a csv file with neutron flux results
     """
 
-    name = 'analysis_output/p1a_' + case + '_d'
+    name = 'analysis_output/' + case + '_d'
     mesh_tally_d = sp.get_tally(name='mesh tally d')
     df_d = mesh_tally_d.get_pandas_dataframe()
     df_dd = pd.DataFrame(index=['E3', 'E2', 'E1'])
@@ -278,7 +279,7 @@ def neutron_flux_e(sp, k, case):
     energy groups.
     """
 
-    name = 'analysis_output/p1a_' + case + '_e'
+    name = 'analysis_output/' + case + '_e'
     mesh_tally_e = sp.get_tally(name='mesh tally e')
     flux = mesh_tally_e.get_slice(scores=['flux'])
     nu_fission = mesh_tally_e.get_slice(scores=['nu-fission'])
@@ -368,7 +369,7 @@ def neutron_spectrum_f(sp, case, k, kerr):
     spectrum averaged over the fuel assembly.
     """
 
-    name = 'analysis_output/p1a_' + case + '_f'
+    name = 'analysis_output/' + case + '_f'
     mesh_tally_f = sp.get_tally(name='mesh tally f')
     df_f = mesh_tally_f.get_pandas_dataframe()
     index_list = []
@@ -389,3 +390,5 @@ def neutron_spectrum_f(sp, case, k, kerr):
     df_ff_T = df_ff.T
     df_ff_T.to_csv(name + '.csv')
     return
+
+
