@@ -48,7 +48,6 @@ def flux_conv(df, sp_power, k, kerr):
         df[df['score'].str.match('nu-fission')]['mean'])  # n/src
     fission = np.array(df[df['score'] == 'fission']['mean'])  # fission/src
     og_flux = np.array(df[df['score'].str.match('flux')]['mean'])  # n*cm/src
-    print('OGFLUX',og_flux)
     nu_fission_err = np.array(
     df[df['score'].str.match('nu-fission')]['std. dev.'])
     fission_err = np.array(df[df['score'] == 'fission']['std. dev.'])
@@ -56,13 +55,9 @@ def flux_conv(df, sp_power, k, kerr):
     nu_fission = sum(nu_fission)
     fission = sum(fission)
     nu = nu_fission / fission  # n/fission
-    print('NU',nu)
-    print('Fiss',nu_fission,fission,nu)
     N = P * nu / (Q * k)  # src/s
     V = 3 * np.sqrt(3) / 2 * H_side ** 2 * z_thickness * T_pitch  # cm3
-    print(V)
     flux = 1 / V * N * og_flux  # n/(cm2*s)
-    print('FINFLUX',flux)
     flux[np.isnan(flux)] = 0
     flux_err = (np.sqrt((nu_fission_err / nu_fission)**2 +
                         (fission_err / fission)**2 + (og_flux_err / og_flux)**2 +
