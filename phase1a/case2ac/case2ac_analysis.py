@@ -19,34 +19,35 @@ from openmc_analysis import *
 #                                  Run
 ###############################################################################
 case = 'p1a_2ac'
-keff = 1.43456
-keff_unc = 0.00003
+keff = 1.43361
+keff_unc = 0.00011
 
-sp = openmc.StatePoint('h5files/3pcm/fhr_p1a_c2ac_3pcm_statepoint.500.h5')
+sp = openmc.StatePoint('h5files/11pcm/statepoint.500.h5')
+
 beta_b(sp, case)
 # doppler
 print(
     reactivity_coefficient_b(
         keff_og=keff,
         keff_og_unc=keff_unc,
-        keff_new=1.43061,
-        keff_new_unc=0.00003,
+        keff_new=1.42966,
+        keff_new_unc=0.00010,
         temp_change=+50))
 # flibe
 print(
     reactivity_coefficient_b(
         keff_og=keff,
         keff_og_unc=keff_unc,
-        keff_new=1.43441,
-        keff_new_unc=0.00003,
+        keff_new=1.43343,
+        keff_new_unc=0.00010,
         temp_change=+50))
 # graphite
 print(
     reactivity_coefficient_b(
         keff_og=keff,
         keff_og_unc=keff_unc,
-        keff_new=1.43427,
-        keff_new_unc=0.00003,
+        keff_new=1.43333,
+        keff_new_unc=0.00010,
         temp_change=+50))
 fission_density_c(sp, case)
 neutron_flux_d(sp, keff, keff_unc, case)
