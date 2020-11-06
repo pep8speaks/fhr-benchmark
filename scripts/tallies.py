@@ -14,9 +14,11 @@ def tallies_generation(root):
     -------
     This function generates the tallies.xml file.
     """
+    
     tallies_file = openmc.Tallies()
+    
     # phase1a-b
-    energy_filter_b = openmc.EnergyFilter([1e-6, 20.0e6])
+    energy_filter_b = openmc.EnergyFilter([1e-8, 20.0e7])
     mesh_b = openmc.RegularMesh(mesh_id=16)
     mesh_b.dimension = [1, 1]
     L = 27.02
@@ -39,7 +41,7 @@ def tallies_generation(root):
                 x_trans += T['A1']['F']['x']
                 y_trans += T['A1']['F']['y']
             mesh_c = openmc.RegularMesh(mesh_id=mesh_no)
-            mesh_c.dimension = [1, 5]
+            mesh_c.dimension = [5,1]
             mesh_c.lower_left = [V['A1']['F']['L']['x'] + x_trans,
                                  V['A1']['F']['B']['y'] + y_trans]
             mesh_c.upper_right = [V['A1']['F']['R']['x'] + x_trans,
@@ -49,8 +51,9 @@ def tallies_generation(root):
             tally_c.filters = [mesh_filter_c]
             tally_c.scores = ['fission']
             tallies_file.append(tally_c)
+            
     # phase 1a-d
-    energy_filter_d = openmc.EnergyFilter([1e-5, 3, 1.0e5, 20.0e6])
+    energy_filter_d = openmc.EnergyFilter([1e-8, 3, 1.0e5, 20.0e7])
     mesh_d = openmc.RegularMesh(mesh_id=13)
     mesh_d.dimension = [1, 1]
     L = 27.02
@@ -59,10 +62,11 @@ def tallies_generation(root):
     mesh_filter_d = openmc.MeshFilter(mesh_d)
     tally_d = openmc.Tally(name='mesh tally d')
     tally_d.filters = [mesh_filter_d, energy_filter_d]
-    tally_d.scores = ['flux', 'nu-fission', 'fission']
+    tally_d.scores = ['flux', 'nu-fission', 'fission','kappa-fission',
+                      'fission-q-prompt','fission-q-recoverable','heating-local','heating','(n,gamma)']
     tallies_file.append(tally_d)
     # phase 1a-e
-    energy_filter_e = openmc.EnergyFilter([1e-5, 3, 0.1e6, 20.0e6])
+    energy_filter_e = openmc.EnergyFilter([1e-8, 3, 1.0e5, 20.0e7])
     mesh_e = openmc.RegularMesh(mesh_id=14)
     mesh_e.dimension = [100, 100]
     L = 27.02
