@@ -42,19 +42,27 @@ def flux_conv(df, sp_power, k, kerr):
     """
     P = 245486.6796001383  # W
     Q = 200 * 1.6022e-13  # J/fission
+    kappa_fission = np.array(
+        df[df['score'].str.match('kappa-fission')]['mean'])
     nu_fission = np.array(
         df[df['score'].str.match('nu-fission')]['mean'])  # n/src
-    fission = np.array(df[df['score'].str.match('fission')]
-                       ['mean'])  # fission/src
+    fission = np.array(df[df['score'] == 'fission']['mean'])  # fission/src
     og_flux = np.array(df[df['score'].str.match('flux')]['mean'])  # n*cm/src
+    print('OGFLUX',og_flux)
     nu_fission_err = np.array(
-        df[df['score'].str.match('nu-fission')]['std. dev.'])
-    fission_err = np.array(df[df['score'].str.match('fission')]['std. dev.'])
+    df[df['score'].str.match('nu-fission')]['std. dev.'])
+    fission_err = np.array(df[df['score'] == 'fission']['std. dev.'])
     og_flux_err = np.array(df[df['score'].str.match('flux')]['std. dev.'])
+    nu_fission = sum(nu_fission)
+    fission = sum(fission)
     nu = nu_fission / fission  # n/fission
+    print('NU',nu)
+    print('Fiss',nu_fission,fission,nu)
     N = P * nu / (Q * k)  # src/s
     V = 3 * np.sqrt(3) / 2 * H_side ** 2 * z_thickness * T_pitch  # cm3
+    print(V)
     flux = 1 / V * N * og_flux  # n/(cm2*s)
+    print('FINFLUX',flux)
     flux[np.isnan(flux)] = 0
     flux_err = (np.sqrt((nu_fission_err / nu_fission)**2 +
                         (fission_err / fission)**2 + (og_flux_err / og_flux)**2 +
@@ -81,7 +89,7 @@ def beta_b(sp, case):
     and its uncertainty.
     """
 
-    name = 'analysis_output/p1a_' + case + '_b'
+    name = 'analysis_output/' + case + '_b'
     mesh_tally_b = sp.get_tally(name='mesh tally b')
     df_b = mesh_tally_b.get_pandas_dataframe()
     beta = df_b['mean'][0] / df_b['mean'][1]
@@ -122,10 +130,12 @@ def reactivity_coefficient_b(
     coeff_unc: float
         reactivity coefficient uncertainty
     """
-
-    coeff = (keff_new * 1e5 - keff_og * 1e5) / temp_change
-    coeff_unc = np.sqrt((keff_og_unc * 1e5)**2 +
-                        (keff_new_unc * 1e5)**2) / temp_change
+    keff_new = keff_new * 1e-5
+    keff_og = keff_og * 1e-5
+    keff_new_unc = keff_new_unc * 1e-5 
+    keff_og_unc = keff_og_unc * 1e-5
+    coeff = (keff_new - keff_og) / temp_change / keff_new / keff_og 
+    coeff_unc = np.sqrt((keff_og_unc/keff_og**2/temp_change)**2+(keff_new_unc/keff_new**2/temp_change)**2)
 
     return coeff, coeff_unc
 
@@ -286,7 +296,7 @@ def neutron_flux_e(sp, k, case):
     fission = mesh_tally_e.get_slice(scores=['fission'])
     flux_conv = {}
     eg_names = ['eg3', 'eg2', 'eg1']
-    egs = [(1e-5, 3), (3, 0.1e6), (0.1e6, 20e6)]
+    egs = [(1e-8, 3), (3, 0.1e6), (0.1e6, 20.0e7)]
     P = 245486.6796001383
     Q = 200 * 1.6022e-13
     V = 3 * np.sqrt(3) / 2 * H_side ** 2 * z_thickness * T_pitch / (100 * 100)
