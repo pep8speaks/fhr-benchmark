@@ -38,7 +38,7 @@ uoc_9.add_nuclide('U238', 2.269476e-2)
 uoc_9.add_nuclide('O16', 3.561871e-2)
 uoc_9.add_nuclide('C0', 9.79714e-3)
 uoc_9.temperature = 1110
-uoc_9.volume = 4 / 3 * pi * (T_r1 ** 3) * 101 * 210 * 4 * 36
+#uoc_9.volume = 4 / 3 * pi * (T_r1 ** 3) * 101 * 210 * 4 * 36
 
 por_c = openmc.Material()
 #por_c.set_density('g/cc', 1)
@@ -89,24 +89,6 @@ flibe.add_nuclide('Be9', 1.18573e-2)
 flibe.add_nuclide('F19', 4.74291e-2)
 flibe.temperature = 948
 
-mhc = openmc.Material()
-mhc.set_density('g/cc', 10.28)
-mhc.add_nuclide('Mo92', 9.328884e-3)
-mhc.add_nuclide('Mo94', 5.850533e-3)
-mhc.add_nuclide('Mo95', 1.010836e-2)
-mhc.add_nuclide('Mo96', 1.061782e-2)
-mhc.add_nuclide('Mo97', 6.102080e-3)
-mhc.add_nuclide('Mo98', 1.546981e-2)
-mhc.add_nuclide('Mo100', 6.205246e-3)
-mhc.add_nuclide('Hf174', 6.659530e-7)
-mhc.add_nuclide('Hf176', 2.189321e-5)
-mhc.add_nuclide('Hf177', 7.741704e-5)
-mhc.add_nuclide('Hf178', 1.135450e-4)
-mhc.add_nuclide('Hf179', 5.668925e-5)
-mhc.add_nuclide('Hf180', 1.460102e-4)
-mhc.add_nuclide('C0', 5.154371e-4)
-mhc.temperature = 948
-
 mats = openmc.Materials(
     (uoc_9,
      por_c,
@@ -115,7 +97,6 @@ mats = openmc.Materials(
      p_graphite,
      lm_graphite,
      flibe,
-     mhc,
      s_graphite))
 mats.export_to_xml()
 
