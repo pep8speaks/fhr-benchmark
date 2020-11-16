@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plots>
-  <plot color_by="material" filename="vox_plot" id="4" type="voxel">
+  <plot color_by="material" filename="vox_plot" id="11" type="voxel">
     <origin>0.0 0.0 0.0</origin>
     <width>55.0 55.0 10.0</width>
     <pixels>1000 1000 1000</pixels>
@@ -12,8 +12,9 @@
     <color id="6" rgb="255 192 203" />
     <color id="7" rgb="0 128 0" />
     <color id="8" rgb="0 0 255" />
+    <level>25</level>
   </plot>
-  <plot basis="xy" color_by="material" filename="full_2d_plot" id="5" type="slice">
+  <plot basis="xy" color_by="material" filename="full_2d_plot" id="12" type="slice">
     <origin>0.0 0.0 0.0</origin>
     <width>55.0 55.0</width>
     <pixels>400 400</pixels>
