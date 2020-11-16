@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<settings>
+  <run_mode>eigenvalue</run_mode>
+  <particles>300</particles>
+  <batches>15</batches>
+  <inactive>10</inactive>
+  <source strength="1.0">
+    <space type="point">
+      <parameters>-11.96257 -2.58899 0.04633</parameters>
+    </space>
+  </source>
+  <output>
+    <tallies>false</tallies>
+  </output>
+  <temperature_method>interpolation</temperature_method>
+</settings>
