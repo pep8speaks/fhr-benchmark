@@ -44,11 +44,11 @@ por_c = openmc.Material()
 #por_c.set_density('g/cc', 1)
 por_c.set_density('atom/b-cm', 5.013980E-2)
 por_c.add_nuclide('C0', 5.013980e-2)
-por_c.add_s_alpha_beta('c_Graphite')
+#por_c.add_s_alpha_beta('c_Graphite')
 por_c.temperature = 948
 
 si_c = openmc.Material()
-#si_c.set_density('g/cc', 3.2)
+#si_c.set_density('g/cm3', 3.2)
 si_c.set_density('atom/b-cm', 9.612234E-2)
 si_c.add_nuclide('Si28', 4.431240e-2)
 si_c.add_nuclide('Si29', 2.25887e-3)
@@ -57,31 +57,31 @@ si_c.add_nuclide('C0', 4.806117e-2)
 si_c.temperature = 948
 
 graphite = openmc.Material()
-graphite.set_density('g/cc', 1.8)
+graphite.set_density('g/cm3', 1.8)
 graphite.add_nuclide('C0', 9.025164e-2)
 graphite.add_s_alpha_beta('c_Graphite')
 graphite.temperature = 948
 
 p_graphite = openmc.Material()
-p_graphite.set_density('g/cc', 1.8)
+p_graphite.set_density('g/cm3', 1.8)
 p_graphite.add_nuclide('C0', 9.025164e-2)
 p_graphite.add_s_alpha_beta('c_Graphite')
 p_graphite.temperature = 948
 
 s_graphite = openmc.Material()
-s_graphite.set_density('g/cc', 1.8)
+s_graphite.set_density('g/cm3', 1.8)
 s_graphite.add_nuclide('C0', 9.025164e-2)
 s_graphite.add_s_alpha_beta('c_Graphite')
 s_graphite.temperature = 948
 
 lm_graphite = openmc.Material()
-lm_graphite.set_density('g/cc', 1.8)
+lm_graphite.set_density('g/cm3', 1.8)
 lm_graphite.add_nuclide('C0', 9.025164e-2)
 lm_graphite.add_s_alpha_beta('c_Graphite')
 lm_graphite.temperature = 948
 
 flibe = openmc.Material()
-#flibe.set_density('g/cc', 1.95)
+#flibe.set_density('g/cm3', 1.95)
 flibe.set_density('atom/b-cm', 8.30097E-2)
 flibe.add_nuclide('Li6', 1.383014e-6)
 flibe.add_nuclide('Li7', 2.37132e-2)
