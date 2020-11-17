@@ -109,7 +109,7 @@ top_surface = openmc.ZPlane(
     z0=T_pitch / 2 + (z_thickness - 1) / 2 * T_pitch, boundary_type='reflective')
 bot_surface = openmc.ZPlane(
     z0=-(T_pitch / 2 + (z_thickness - 1) / 2 * T_pitch), boundary_type='reflective')
-
+print(T_pitch / 2 + (z_thickness - 1) / 2 * T_pitch)
 # Outermost Hexagon
 
 H_m = 1 / tan(pi / 6)
