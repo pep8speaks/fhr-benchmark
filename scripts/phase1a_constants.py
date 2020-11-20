@@ -12,7 +12,7 @@ import openmc
 ###############################################################################
 #                               Constants
 ###############################################################################
-
+H_side_big = 23.4 / sin(pi/3)
 H_side = 22.5 / sin(pi / 3)
 P_len = 23.1  # plank length
 P_D_jut = 2 - 1.4948
@@ -28,7 +28,7 @@ P_A3_hyp = P_A1_height / sin(pi / 3)
 P_big_gap_A3_hyp = P_big_gap / sin(pi / 3)
 D_to_center = 2
 D_to_center_width = D_to_center * tan(pi / 6)
-D_A1_width = P_len - 2 * (P_D_jut)
+D_A1_width = P_len - 2 * (P_D_jut_hyp) # mistake OG: P_len - 2 * (P_D_jut)
 D_A1_height = 19.5
 D_A1_adj = D_A1_height / tan(pi / 3)
 T_pitch = 0.09266
@@ -44,6 +44,7 @@ F_A1_D_gap = (D_A1_width - F_len) / 2
 F_F_gap = P_A1_height - 2 * F_width - 2 * F_protect_gap
 F_F_gap_adj = F_F_gap / tan(pi / 3)
 F_A1_width_adj = F_width / tan(pi / 3)
+F_A1_width_hyp = F_width / sin(pi/3)
 F_F_gap_A2_hyp = F_F_gap / sin(pi / 3)
 F_A2_width_hyp = F_width / sin(pi / 3)
 F_F_gap_A3_hyp = F_F_gap / sin(pi / 3)
@@ -57,7 +58,7 @@ S_large_r = 0.7
 S_small_r = 0.35
 CS_l = 10.38
 CS_w = 1.76
-CA_l = 10
+CA_l = 10 
 CA_w = 1
 z_thickness = 101  # no. of triso particle thickness, must be odd
 
@@ -683,8 +684,8 @@ V['A3']['CS']['T'] = {
         V['A1']['CS']['R']['y'],
         A3_t),
     'y': ry(
-        V['A1']['CA']['R']['x'],
-        V['A1']['CA']['R']['y'],
+        V['A1']['CS']['R']['x'],
+        V['A1']['CS']['R']['y'],
         A3_t)}
 V['A3']['CS']['B'] = {
     'm': -1 / m1,
@@ -693,8 +694,8 @@ V['A3']['CS']['B'] = {
         V['A1']['CS']['L']['y'],
         A3_t),
     'y': ry(
-        V['A1']['CA']['L']['x'],
-        V['A1']['CA']['L']['y'],
+        V['A1']['CS']['L']['x'],
+        V['A1']['CS']['L']['y'],
         A3_t)}
 V['A3']['CS']['R'] = {
     'm': m1,
@@ -703,8 +704,8 @@ V['A3']['CS']['R'] = {
         V['A1']['CS']['B']['y'],
         A3_t),
     'y': ry(
-        V['A1']['CA']['B']['x'],
-        V['A1']['CA']['B']['y'],
+        V['A1']['CS']['B']['x'],
+        V['A1']['CS']['B']['y'],
         A3_t)}
 V['A3']['CS']['L'] = {
     'm': m1,
@@ -713,8 +714,8 @@ V['A3']['CS']['L'] = {
         V['A1']['CS']['T']['y'],
         A3_t),
     'y': ry(
-        V['A1']['CA']['T']['x'],
-        V['A1']['CA']['T']['y'],
+        V['A1']['CS']['T']['x'],
+        V['A1']['CS']['T']['y'],
         A3_t)}
 
 V['A3']['CA']['T'] = {
@@ -774,11 +775,11 @@ T['A2']['P'] = {'x': -P_A2_hyp - P_big_gap_A2_hyp, 'y': 0}
 T['A3']['P'] = {'x': (P_A3_hyp + P_big_gap_A3_hyp) * cos(pi / 3),
                 'y': (P_A3_hyp + P_big_gap_A3_hyp) * sin(pi / 3)}
 
-T['A1']['F'] = {'x': F_F_gap_adj + F_A1_width_adj, 'y': -F_F_gap - F_width}
+T['A1']['F'] = {'x': F_F_gap_adj, 'y': -F_F_gap - F_width} #mistake 
 T['A2']['F'] = {'x': -F_F_gap_A2_hyp - F_A2_width_hyp, 'y': 0}
 T['A3']['F'] = {
-    'x': F_F_gap_A3_adj + F_A3_width_adj,
-    'y': F_F_gap_A3_opp + F_A3_width_opp}
+    'x': (F_F_gap_A3_hyp + F_A1_width_hyp) * cos(pi/3), 
+    'y': (F_F_gap_A3_hyp + F_A1_width_hyp) * sin(pi/3) } # mistake 
 
 T['A1']['S'] = {'x': -S_S_gap, 'y': 0}
 T['A2']['S'] = {'x': S_S_gap * cos(pi / 3), 'y': S_S_gap * sin(pi / 3)}
