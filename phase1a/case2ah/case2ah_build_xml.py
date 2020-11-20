@@ -130,20 +130,31 @@ bot_surface = openmc.ZPlane(
     z0=-(T_pitch / 2 + (z_thickness - 1) / 2 * T_pitch), boundary_type='reflective')
 
 # Outermost Hexagon
-
 H_m = 1 / tan(pi / 6)
-H_1 = openmc.YPlane(0.5 * H_side / tan(pi / 6), 'periodic')
-H_2 = plane(-H_m, 0.5 * H_side, 0.5 * H_side / tan(pi / 6), 'periodic')
-H_3 = plane(H_m, 0.5 * H_side, -0.5 * H_side / tan(pi / 6), 'periodic')
-H_4 = openmc.YPlane(-0.5 * H_side / tan(pi / 6), 'periodic')
-H_5 = plane(-H_m, -0.5 * H_side, -0.5 * H_side / tan(pi / 6), 'periodic')
-H_6 = plane(H_m, -0.5 * H_side, 0.5 * H_side / tan(pi / 6), 'periodic')
+H_1 = openmc.YPlane(0.5 * H_side_big / tan(pi / 6), 'periodic')
+H_2 = plane(-H_m, 0.5 * H_side_big, 0.5 * H_side_big / tan(pi / 6), 'periodic')
+H_3 = plane(H_m, 0.5 * H_side_big, -0.5 * H_side_big / tan(pi / 6), 'periodic')
+H_4 = openmc.YPlane(-0.5 * H_side_big / tan(pi / 6), 'periodic')
+H_5 = plane(-H_m, -0.5 * H_side_big, -0.5 * H_side_big / tan(pi / 6), 'periodic')
+H_6 = plane(H_m, -0.5 * H_side_big, 0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_1.periodic_surface = H_4
 H_2.periodic_surface = H_5
 H_3.periodic_surface = H_6
 H_region = -H_1 & +H_4 & -H_2 & +H_3 & +H_5 & -H_6
-H_cell = openmc.Cell(fill=graphite)
+H_cell = openmc.Cell(fill=flibe)
 H_cell.region = H_region & -top_surface & + bot_surface
+
+# Inner Hexagon 
+Hi_1 = openmc.YPlane(0.5 * H_side / tan(pi / 6))
+Hi_2 = plane(-H_m, 0.5 * H_side, 0.5 * H_side / tan(pi / 6))
+Hi_3 = plane(H_m, 0.5 * H_side, -0.5 * H_side / tan(pi / 6))
+Hi_4 = openmc.YPlane(-0.5 * H_side / tan(pi / 6))
+Hi_5 = plane(-H_m, -0.5 * H_side, -0.5 * H_side / tan(pi / 6))
+Hi_6 = plane(H_m, -0.5 * H_side, 0.5 * H_side / tan(pi / 6))
+Hi_region = -Hi_1 & +Hi_4 & -Hi_2 & +Hi_3 & +Hi_5 & -Hi_6
+Hi_cell = openmc.Cell(fill=graphite)
+Hi_cell.region = Hi_region & -top_surface & + bot_surface
+H_cell.region &= ~Hi_region
 
 # Diamond Plank Area
 A1_D_cell = openmc.Cell(fill=flibe)
@@ -158,6 +169,7 @@ A3_D_cell.region = region_maker('A3', 'D') & -top_surface & + bot_surface
 D_regions = A1_D_cell.region | A2_D_cell.region | A3_D_cell.region
 D_universe = openmc.Universe(cells=(A1_D_cell, A2_D_cell, A3_D_cell,))
 D_areas = openmc.Cell(fill=D_universe, region=D_regions)
+Hi_cell.region &= ~D_regions
 H_cell.region &= ~D_regions
 
 # Graphite Planks
@@ -182,6 +194,7 @@ for area in range(3):
         all_P_univ.add_cell(P_cell_new)
         all_P_regions |= P_region_new
         D_areas.region &= ~P_region_new
+        Hi_cell.region &= ~P_region_new
         H_cell.region &= ~P_region_new
 P_areas = openmc.Cell(
     fill=all_P_univ,
@@ -248,6 +261,7 @@ for area in range(3):
             all_F_regions |= F_region_new
             P_areas.region &= ~F_region_new
             D_areas.region &= ~F_region_new
+            Hi_cell.region &= ~F_region_new
             H_cell.region &= ~F_region_new
 F_areas = openmc.Cell(
     fill=all_F_univ,
@@ -310,6 +324,7 @@ for y in range(3):
                 F_areas.region &= ~S_region_new
                 P_areas.region &= ~S_region_new
                 D_areas.region &= ~S_region_new
+                Hi_cell.region &= ~S_region_new
                 H_cell.region &= ~S_region_new
 S_areas = openmc.Cell(
     fill=all_S_univ,
@@ -334,6 +349,7 @@ S_areas.region &= ~CS_regions
 F_areas.region &= ~CS_regions
 P_areas.region &= ~CS_regions
 D_areas.region &= ~CS_regions
+Hi_cell.region &= ~CS_regions
 H_cell.region &= ~CS_regions
 
 # Control Rod Arm
@@ -354,12 +370,14 @@ S_areas.region &= ~CA_regions
 F_areas.region &= ~CA_regions
 P_areas.region &= ~CA_regions
 D_areas.region &= ~CA_regions
+Hi_cell.region &= ~CA_regions
 H_cell.region &= ~CA_regions
 
 # export to xml
 root = openmc.Universe(
     cells=[
         H_cell,
+        Hi_cell,
         D_areas,
         P_areas,
         F_areas,
