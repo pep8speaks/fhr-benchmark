@@ -19,10 +19,10 @@ from openmc_analysis import *
 #                                  Run
 ###############################################################################
 case = 'p1a_4ar'
-keff = 0.83437  # 0.83771
-keff_unc = 0.00009  # 0.00003
+keff = 0.84158
+keff_unc = 0.00010
 
-sp = openmc.StatePoint('h5files/9pcm/statepoint.500.h5')
+sp = openmc.StatePoint('h5files/10pcm/statepoint.500.h5')
 
 beta_b(sp, case)
 # doppler
@@ -49,7 +49,7 @@ print(
         keff_new=0.83080,
         keff_new_unc=0.00009,
         temp_change=+100))
-# fission_density_c(sp,case)
-# neutron_flux_d(sp,keff,keff_unc,case)
-# neutron_flux_e(sp,keff,case)
-# neutron_spectrum_f(sp,case,keff,keff_unc)
+fission_density_c(sp,case)
+neutron_flux_d(sp,keff,keff_unc,case)
+neutron_flux_e(sp,keff,case)
+neutron_spectrum_f(sp,case,keff,keff_unc)
