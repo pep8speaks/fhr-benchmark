@@ -27,28 +27,28 @@ beta_b(sp, case)
 # doppler
 print(
     reactivity_coefficient_b(
-        keff_og=1.02907,
-        keff_og_unc=0.00010,
-        keff_new=1.02529,
-        keff_new_unc=0.00011,
-        temp_change=+100))
+        keff_og=keff,
+        keff_og_unc=keff_unc,
+        keff_new=1.02933,
+        keff_new_unc=0.00010,
+        temp_change=+50))
 # flibe
 print(
     reactivity_coefficient_b(
         keff_og=keff,
         keff_og_unc=keff_unc,
-        keff_new=1.02721,
-        keff_new_unc=0.00010,
+        keff_new=1.03103,
+        keff_new_unc=0.00009,
         temp_change=+50))
 # graphite
 print(
     reactivity_coefficient_b(
         keff_og=keff,
         keff_og_unc=keff_unc,
-        keff_new=1.02562,
-        keff_new_unc=0.00010,
+        keff_new=1.02978,
+        keff_new_unc=0.00011,
         temp_change=+50))
-fission_density_c(sp, case)
-neutron_flux_d(sp, keff, keff_unc, case)
-neutron_flux_e(sp, keff, case)
-neutron_spectrum_f(sp, case, keff, keff_unc)
+#fission_density_c(sp, case)
+#neutron_flux_d(sp, keff, keff_unc, case)
+#neutron_flux_e(sp, keff, case)
+#neutron_spectrum_f(sp, case, keff, keff_unc)
