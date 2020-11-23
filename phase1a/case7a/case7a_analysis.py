@@ -19,10 +19,10 @@ from openmc_analysis import *
 #                                  Run
 ###############################################################################
 case = 'p1a_7a'
-keff = 1.50479 
-keff_unc = 0.00009
+keff = 1.50526
+keff_unc = 0.00010
 
-sp = openmc.StatePoint('h5files/9pcm/statepoint.500.h5')
+sp = openmc.StatePoint('h5files/10pcm/statepoint.500.h5')
 beta_b(sp, case)
 # doppler
 print(
