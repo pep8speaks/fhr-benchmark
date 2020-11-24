@@ -59,7 +59,7 @@ graphite.add_s_alpha_beta('c_Graphite')
 graphite.temperature = 948
 
 p_graphite = openmc.Material()
-p_graphite.set_density('atom/b-cm',9.025966E-2)
+p_graphite.set_density('atom/b-cm', 9.025966E-2)
 p_graphite.add_nuclide('C0', 9.025164e-2)
 p_graphite.add_nuclide('Eu151', 1.533453e-6)
 p_graphite.add_nuclide('Eu153', 1.674607e-6)
@@ -68,7 +68,7 @@ p_graphite.add_s_alpha_beta('c_Graphite')
 p_graphite.temperature = 948
 
 s_graphite = openmc.Material()
-s_graphite.set_density('atom/b-cm',9.025164e-2)
+s_graphite.set_density('atom/b-cm', 9.025164e-2)
 s_graphite.add_nuclide('C0', 9.025164e-2)
 s_graphite.add_s_alpha_beta('c_Graphite')
 s_graphite.temperature = 948
@@ -136,7 +136,8 @@ H_1 = openmc.YPlane(0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_2 = plane(-H_m, 0.5 * H_side_big, 0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_3 = plane(H_m, 0.5 * H_side_big, -0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_4 = openmc.YPlane(-0.5 * H_side_big / tan(pi / 6), 'periodic')
-H_5 = plane(-H_m, -0.5 * H_side_big, -0.5 * H_side_big / tan(pi / 6), 'periodic')
+H_5 = plane(-H_m, -0.5 * H_side_big, -0.5 *
+            H_side_big / tan(pi / 6), 'periodic')
 H_6 = plane(H_m, -0.5 * H_side_big, 0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_1.periodic_surface = H_4
 H_2.periodic_surface = H_5
@@ -145,7 +146,7 @@ H_region = -H_1 & +H_4 & -H_2 & +H_3 & +H_5 & -H_6
 H_cell = openmc.Cell(fill=flibe)
 H_cell.region = H_region & -top_surface & + bot_surface
 
-# Inner Hexagon 
+# Inner Hexagon
 Hi_1 = openmc.YPlane(0.5 * H_side / tan(pi / 6))
 Hi_2 = plane(-H_m, 0.5 * H_side, 0.5 * H_side / tan(pi / 6))
 Hi_3 = plane(H_m, 0.5 * H_side, -0.5 * H_side / tan(pi / 6))
