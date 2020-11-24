@@ -19,22 +19,22 @@
     <nuclide ao="0.04806117" name="C0" />
   </material>
   <material id="4" temperature="948">
-    <density units="g/cm3" value="1.8" />
+    <density units="g/cc" value="1.8" />
     <nuclide ao="0.09025164" name="C0" />
     <sab name="c_Graphite" />
   </material>
   <material id="5" temperature="948">
-    <density units="g/cm3" value="1.8" />
+    <density units="g/cc" value="1.8" />
     <nuclide ao="0.09025164" name="C0" />
     <sab name="c_Graphite" />
   </material>
   <material id="6" temperature="948">
-    <density units="g/cm3" value="1.8" />
+    <density units="g/cc" value="1.8" />
     <nuclide ao="0.09025164" name="C0" />
     <sab name="c_Graphite" />
   </material>
   <material id="7" temperature="948">
-    <density units="g/cm3" value="1.8" />
+    <density units="g/cc" value="1.8" />
     <nuclide ao="0.09025164" name="C0" />
     <sab name="c_Graphite" />
   </material>
