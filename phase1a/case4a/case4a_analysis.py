@@ -19,8 +19,8 @@ from openmc_analysis import *
 #                                  Run
 ###############################################################################
 case = 'p1a_4a'
-keff = 1.09766 
-keff_unc = 0.00010 
+keff = 1.09766
+keff_unc = 0.00010
 
 sp = openmc.StatePoint('h5files/10pcm/statepoint.500.h5')
 

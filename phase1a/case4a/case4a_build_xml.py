@@ -39,7 +39,7 @@ uoc_9.add_nuclide('O16', 3.561871e-2)
 uoc_9.add_nuclide('C0', 9.79714e-3)
 uoc_9.temperature = 1110
 uoc_9.volume = 4 / 3 * pi * (T_r1 ** 3) * 101 * 210 * 4 * 36
-uoc_9.depletable= True
+uoc_9.depletable = True
 
 por_c = openmc.Material()
 por_c.set_density('atom/b-cm', 5.013980E-2)
@@ -105,13 +105,13 @@ mhc.add_nuclide('C0', 5.154371e-4)
 mhc.temperature = 948
 
 euo_s = openmc.Material()
-euo_s.set_density('atom/b-cm',4.277986E-2)
+euo_s.set_density('atom/b-cm', 4.277986E-2)
 euo_s.add_nuclide('Eu151', 8.179510e-3)
 euo_s.add_nuclide('Eu153', 8.932435e-3)
 euo_s.add_nuclide('O16', 2.56792e-2)
 euo_s.temperature = 948
-euo_s.volume = 4/3 * pi * (DE_r **3) * 5 * 18 * 101
-euo_s.depletable = True 
+euo_s.volume = 4 / 3 * pi * (DE_r ** 3) * 5 * 18 * 101
+euo_s.depletable = True
 
 mats = openmc.Materials(
     (uoc_9,
@@ -143,7 +143,8 @@ H_1 = openmc.YPlane(0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_2 = plane(-H_m, 0.5 * H_side_big, 0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_3 = plane(H_m, 0.5 * H_side_big, -0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_4 = openmc.YPlane(-0.5 * H_side_big / tan(pi / 6), 'periodic')
-H_5 = plane(-H_m, -0.5 * H_side_big, -0.5 * H_side_big / tan(pi / 6), 'periodic')
+H_5 = plane(-H_m, -0.5 * H_side_big, -0.5 *
+            H_side_big / tan(pi / 6), 'periodic')
 H_6 = plane(H_m, -0.5 * H_side_big, 0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_1.periodic_surface = H_4
 H_2.periodic_surface = H_5
@@ -152,7 +153,7 @@ H_region = -H_1 & +H_4 & -H_2 & +H_3 & +H_5 & -H_6
 H_cell = openmc.Cell(fill=flibe)
 H_cell.region = H_region & -top_surface & + bot_surface
 
-# Inner Hexagon 
+# Inner Hexagon
 Hi_1 = openmc.YPlane(0.5 * H_side / tan(pi / 6))
 Hi_2 = plane(-H_m, 0.5 * H_side, 0.5 * H_side / tan(pi / 6))
 Hi_3 = plane(H_m, 0.5 * H_side, -0.5 * H_side / tan(pi / 6))
