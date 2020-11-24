@@ -48,7 +48,7 @@ print(
         keff_new=1.02978,
         keff_new_unc=0.00011,
         temp_change=+50))
-#fission_density_c(sp, case)
-#neutron_flux_d(sp, keff, keff_unc, case)
-#neutron_flux_e(sp, keff, case)
-#neutron_spectrum_f(sp, case, keff, keff_unc)
+fission_density_c(sp, case)
+neutron_flux_d(sp, keff, keff_unc, case)
+neutron_flux_e(sp, keff, case)
+neutron_spectrum_f(sp, case, keff, keff_unc)
