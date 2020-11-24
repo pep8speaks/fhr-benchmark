@@ -31,7 +31,6 @@ tallies_on = True
 ###############################################################################
 
 uoc_19 = openmc.Material()
-#uoc_19.set_density('g/cc', 11)
 uoc_19.set_density('atom/b-cm', 7.047050E-2)
 uoc_19.add_nuclide('U235', 4.98781e-3)
 uoc_19.add_nuclide('U238', 2.001094e-2)
@@ -41,13 +40,11 @@ uoc_19.temperature = 1110
 uoc_19.volume = 4 / 3 * pi * (T_r1 ** 3) * 101 * 210 * 4 * 36
 
 por_c = openmc.Material()
-#por_c.set_density('g/cc', 1)
 por_c.set_density('atom/b-cm', 5.013980E-2)
 por_c.add_nuclide('C0', 5.013980e-2)
 por_c.temperature = 948
 
 si_c = openmc.Material()
-#si_c.set_density('g/cc', 3.2)
 si_c.set_density('atom/b-cm', 9.612234E-2)
 si_c.add_nuclide('Si28', 4.431240e-2)
 si_c.add_nuclide('Si29', 2.25887e-3)
@@ -80,7 +77,6 @@ lm_graphite.add_s_alpha_beta('c_Graphite')
 lm_graphite.temperature = 948
 
 flibe = openmc.Material()
-#flibe.set_density('g/cc', 1.95)
 flibe.set_density('atom/b-cm', 8.30097E-2)
 flibe.add_nuclide('Li6', 1.383014e-6)
 flibe.add_nuclide('Li7', 2.37132e-2)
@@ -89,7 +85,6 @@ flibe.add_nuclide('F19', 4.74291e-2)
 flibe.temperature = 948
 
 mhc = openmc.Material()
-#mhc.set_density('g/cc', 10.28)
 mhc.set_density('atom/b-cm', 6.461439E-2)
 mhc.add_nuclide('Mo92', 9.328884e-3)
 mhc.add_nuclide('Mo94', 5.850533e-3)
