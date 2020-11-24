@@ -131,7 +131,8 @@ H_1 = openmc.YPlane(0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_2 = plane(-H_m, 0.5 * H_side_big, 0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_3 = plane(H_m, 0.5 * H_side_big, -0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_4 = openmc.YPlane(-0.5 * H_side_big / tan(pi / 6), 'periodic')
-H_5 = plane(-H_m, -0.5 * H_side_big, -0.5 * H_side_big / tan(pi / 6), 'periodic')
+H_5 = plane(-H_m, -0.5 * H_side_big, -0.5 * H_side_big / tan(pi / 6), 
+            'periodic')
 H_6 = plane(H_m, -0.5 * H_side_big, 0.5 * H_side_big / tan(pi / 6), 'periodic')
 H_1.periodic_surface = H_4
 H_2.periodic_surface = H_5
@@ -140,7 +141,7 @@ H_region = -H_1 & +H_4 & -H_2 & +H_3 & +H_5 & -H_6
 H_cell = openmc.Cell(fill=flibe)
 H_cell.region = H_region & -top_surface & + bot_surface
 
-# Inner Hexagon 
+# Inner Hexagon
 Hi_1 = openmc.YPlane(0.5 * H_side / tan(pi / 6))
 Hi_2 = plane(-H_m, 0.5 * H_side, 0.5 * H_side / tan(pi / 6))
 Hi_3 = plane(H_m, 0.5 * H_side, -0.5 * H_side / tan(pi / 6))
