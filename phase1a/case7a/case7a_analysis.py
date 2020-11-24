@@ -29,7 +29,7 @@ print(
     reactivity_coefficient_b(
         keff_og=keff,
         keff_og_unc=keff_unc,
-        keff_new=1.50204,
+        keff_new=1.50244,
         keff_new_unc=0.00010,
         temp_change=+50))
 # flibe
@@ -37,7 +37,7 @@ print(
     reactivity_coefficient_b(
         keff_og=keff,
         keff_og_unc=keff_unc,
-        keff_new=1.50477,
+        keff_new=1.50512,
         keff_new_unc=0.00010,
         temp_change=+50))
 # graphite
@@ -45,11 +45,11 @@ print(
     reactivity_coefficient_b(
         keff_og=keff,
         keff_og_unc=keff_unc,
-        keff_new=1.5043,
+        keff_new=1.50456,
         keff_new_unc=0.00009,
         temp_change=+50))
 
-fission_density_c(sp, case)
-neutron_flux_d(sp, keff, keff_unc, case)
-neutron_flux_e(sp, keff, case)
-neutron_spectrum_f(sp, case, keff, keff_unc)
+#fission_density_c(sp, case)
+#neutron_flux_d(sp, keff, keff_unc, case)
+#neutron_flux_e(sp, keff, case)
+#neutron_spectrum_f(sp, case, keff, keff_unc)
